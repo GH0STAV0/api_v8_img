@@ -168,6 +168,24 @@ exports.findOne = (req, res) => {
   });
 };
 
+
+exports.findOne_pure = (req, res) => {
+  Customer.findById_pure(req.params.customerId11, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `PURE : Not found Customer with id ${req.params.customerId11}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "PURE : Error retrieving Customer with id " + req.params.customerId11
+        });
+      }
+    } else res.send(data);
+  });
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////:
 exports.findOne_van = (req, res) => {
   Customer.findById_van(req.params.customerId3, (err, data) => {
     if (err) {

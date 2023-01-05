@@ -205,6 +205,25 @@ Customer.create = (newCustomer, result) => {
 };
 
 
+Customer.findById_pure = (customerId, result) => {
+  sql.query(`SELECT * FROM pure_tbl WHERE id = ${customerId}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found customer pure_tbl : ", res[0]);
+      result(null, res[0]);
+      return;
+    }
+
+    // not found Customer with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
 Customer.findById_van = (customerId, result) => {
   sql.query(`SELECT * FROM vanish_tb WHERE id = ${customerId}`, (err, res) => {
     if (err) {

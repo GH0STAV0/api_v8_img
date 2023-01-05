@@ -23,6 +23,10 @@ module.exports = app => {
     //COUNT LEFT CONFIG
   app.get("/pure/count", customers.config_left_pure);
 
+
+   // Retrieve a single Customer with customerId
+  app.get("/pure/:customerId11", customers.findOne_pure);
+
   app.put("/pure/update/:customerId10", customers.update_pure);
 
 
