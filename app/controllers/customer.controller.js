@@ -75,6 +75,19 @@ exports.get_random = (req, res) => {
 };
 
 
+
+// Retrieve all Customers from the database. * VANISH *
+exports.config_left_pure = (req, res) => {
+  Customer.config_left_van((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "PURE =:= Some error occurred while retrieving get random."
+      });
+    else res.send(data);
+  });
+};
+
 // Retrieve all Customers from the database. * VANISH *
 exports.config_left_van = (req, res) => {
   Customer.config_left_van((err, data) => {
