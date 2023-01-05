@@ -78,7 +78,7 @@ exports.get_random = (req, res) => {
 
 // Retrieve all Customers from the database. * VANISH *
 exports.config_left_pure = (req, res) => {
-  Customer.config_left_van((err, data) => {
+  Customer.config_left_pure((err, data) => {
     if (err)
       res.status(500).send({
         message:
