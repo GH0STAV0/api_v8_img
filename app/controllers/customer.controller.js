@@ -14,6 +14,18 @@ exports.get_active_google_van = (req, res) => {
   });
 };
 // Retrieve Active Google  from the database.
+exports.get_active_google_pure = (req, res) => {
+  Customer.get_active_pure((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving get active account."
+      });
+    else res.send(data);
+  });
+};
+
+// Retrieve Active Google  from the database.
 exports.get_active_google = (req, res) => {
   Customer.get_active_google((err, data) => {
     if (err)
@@ -25,7 +37,20 @@ exports.get_active_google = (req, res) => {
   });
 };
 
-// Retrieve all Customers from the database. * N0RD *
+// Retrieve all Customers from the database. * pure *
+exports.get_random_pure = (req, res) => {
+  Customer.get_random_pure((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "PURE =:= Some error occurred while retrieving get random."
+      });
+    else res.send(data);
+  });
+};
+
+
+// Retrieve all Customers from the database. * VAN *
 exports.get_random_van = (req, res) => {
   Customer.get_random_van((err, data) => {
     if (err)

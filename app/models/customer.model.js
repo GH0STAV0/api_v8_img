@@ -7,6 +7,20 @@ const Customer = function(customer) {
   //this.active = customer.active;
 };
 
+Customer.get_active_google_pure = result => {
+  sql.query("SELECT * FROM gc_acc WHERE (`acc_status`='A' AND `gc_account_type`='pure') ORDER BY RAND() LIMIT 1 ", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("get_active_google pure: ", res);
+    result(null, res);
+  });
+};
+
+
 Customer.get_active_google_van = result => {
   sql.query("SELECT * FROM gc_acc WHERE (`acc_status`='A' AND `gc_account_type`='van') ORDER BY RAND() LIMIT 1 ", (err, res) => {
     if (err) {
@@ -37,7 +51,18 @@ Customer.get_active_google = result => {
 
 
 
+Customer.reset_all_pure = result => {
+  sql.query("UPDATE `pure_tbl` SET  `used` = 'n'", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
 
+    console.log(`pure_tbl ${res.affectedRows} customers`);
+    result(null, res);
+  });
+};
 
 
 Customer.reset_all_nord = result => {
@@ -70,7 +95,21 @@ Customer.reset_all_van = result => {
 
 
 
-// GET RANDOM CONFIG * VANISH *
+Customer.get_random_pure = result => {
+  sql.query("SELECT * FROM pure_tbl WHERE (`used`='n') ORDER BY RAND() LIMIT 1 ", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("get_random PURE :  ", res);
+    result(null, res);
+  });
+};
+
+
+// GET RANDOM CONFIG * VANISH * pure_tbl
 
 Customer.get_random_van = result => {
   sql.query("SELECT * FROM vanish_tb WHERE (`used`='n') ORDER BY RAND() LIMIT 1 ", (err, res) => {
@@ -100,6 +139,23 @@ Customer.get_random = result => {
     result(null, res);
   });
 };
+
+
+///SELECT COUNT(*) FROM product_details * pure_tbl *;
+
+Customer.config_left_pure = result => {
+  sql.query("SELECT COUNT(*) FROM pure_tbl WHERE (`used`='n') ", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("* PURE  * -config_left : ", res);
+    result(null, res);
+  });
+};
+
 
 ///SELECT COUNT(*) FROM product_details * VANISH *;
 

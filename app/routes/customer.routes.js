@@ -16,6 +16,9 @@ module.exports = app => {
 
   //////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
+    // GET RANDOM CONFIG
+  app.get("/pure/ran", customers.get_random_pure);
+  // SELECT COUNT(*) FROM product_details;
   // GET RANDOM CONFIG
   app.get("/van/ran", customers.get_random_van);
   // SELECT COUNT(*) FROM product_details;
