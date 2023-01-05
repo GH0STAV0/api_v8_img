@@ -277,6 +277,7 @@ Customer.getAll = result => {
 };
 
 
+
 /////////////////////////////////////////////////////////////////
 
 Customer.updateById8 = (id, customer, result) => {
@@ -387,6 +388,31 @@ Customer.updateById4 = (id, customer, result) => {
 
 /////////////////////////////////////////////////////////////////
 
+Customer.updateById10 = (id, customer, result) => {
+  sql.query(
+    "UPDATE pure_tbl SET used = ? WHERE id = ?",
+    ["y", id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found Customer with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated pure_tbl: ", { id: id });
+      result(null, { id: id });
+    }
+  );
+};
+
+/////////////////////////////////////////////////////////////////
+
 Customer.updateById3 = (id, customer, result) => {
   sql.query(
     "UPDATE vanish_tb SET used = ? WHERE id = ?",
@@ -409,7 +435,6 @@ Customer.updateById3 = (id, customer, result) => {
     }
   );
 };
-
 /////////////////////////////////////////////////////////////////
 
 Customer.updateById2 = (id, customer, result) => {

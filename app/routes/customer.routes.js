@@ -15,10 +15,22 @@ module.exports = app => {
 
 
   //////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////
+
     // GET RANDOM CONFIG
   app.get("/pure/ran", customers.get_random_pure);
   // SELECT COUNT(*) FROM product_details;
+
+    //COUNT LEFT CONFIG
+  app.get("/pure/count", customers.config_left_pure);
+
+  app.put("/pure/update/:customerId10", customers.update_pure);
+
+
+  //Reset all Config set used=y
+  app.put("/pure/reset_all", customers.reset_all_pure);
+
+
+  /////////////////////////////////////////////////////////////////////////////////
   // GET RANDOM CONFIG
   app.get("/van/ran", customers.get_random_van);
   // SELECT COUNT(*) FROM product_details;

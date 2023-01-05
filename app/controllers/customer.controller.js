@@ -315,6 +315,39 @@ exports.update_gc_acc_van = (req, res) => {
   );
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////////////:
+
+exports.update_pure = (req, res) => {
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "PURE : Content can not be empty!"
+    });
+  }
+
+  console.log(req.body);
+
+  Customer.updateById10(
+    req.params.customerId10,
+    new Customer(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `pure : Not found Customer with id ${req.params.customerId10}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "pure : Error updating Customer with id " + req.params.customerId10
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////:
 
 /////////////////////////////////////////////////////////////////////////////////////////////////:
 
@@ -444,6 +477,19 @@ exports.deleteAll = (req, res) => {
   });
 };
 
+
+
+//reset_all_pure
+exports.reset_all_pure = (req, res) => {
+  Customer.reset_all_pure((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all customers."
+      });
+    else res.send({ message: `[ VANISH ] : All  were reset successfully!` });
+  });
+};
 
 //reset_all_van
 exports.reset_all_van = (req, res) => {
